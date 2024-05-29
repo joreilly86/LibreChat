@@ -1,11 +1,13 @@
 import { useRef } from 'react';
-import useTextToSpeechBrowser from './useTextToSpeechBrowser';
+import { parseTextParts } from 'librechat-data-provider';
+import type { TMessage } from 'librechat-data-provider';
 import useTextToSpeechExternal from './useTextToSpeechExternal';
+import useTextToSpeechBrowser from './useTextToSpeechBrowser';
 import { usePauseGlobalAudio } from '../Audio';
 import { useRecoilState } from 'recoil';
 import store from '~/store';
 
-const useTextToSpeech = (message: string, isLast: boolean, index = 0) => {
+const useTextToSpeech = (message: TMessage, isLast: boolean, index = 0) => {
   const [endpointTTS] = useRecoilState<string>(store.endpointTTS);
   const useExternalTextToSpeech = endpointTTS === 'external';
 
@@ -20,7 +22,8 @@ const useTextToSpeech = (message: string, isLast: boolean, index = 0) => {
     cancelSpeech: cancelSpeechExternal,
     isSpeaking: isSpeakingExternal,
     isLoading: isLoading,
-  } = useTextToSpeechExternal(isLast, index);
+    audioRef,
+  } = useTextToSpeechExternal(message.messageId, isLast, index);
   const { pauseGlobalAudio } = usePauseGlobalAudio(index);
 
   const generateSpeech = useExternalTextToSpeech ? generateSpeechExternal : generateSpeechLocal;
@@ -34,7 +37,10 @@ const useTextToSpeech = (message: string, isLast: boolean, index = 0) => {
     isMouseDownRef.current = true;
     timerRef.current = window.setTimeout(() => {
       if (isMouseDownRef.current) {
-        generateSpeech(message, true);
+        const messageContent = message?.content ?? message?.text ?? '';
+        const parsedMessage =
+          typeof messageContent === 'string' ? messageContent : parseTextParts(messageContent);
+        generateSpeech(parsedMessage, false);
       }
     }, 1000);
   };
@@ -48,10 +54,14 @@ const useTextToSpeech = (message: string, isLast: boolean, index = 0) => {
 
   const toggleSpeech = () => {
     if (isSpeaking) {
+      console.log('canceling message audio speech');
       cancelSpeech();
       pauseGlobalAudio();
     } else {
-      generateSpeech(message, false);
+      const messageContent = message?.content ?? message?.text ?? '';
+      const parsedMessage =
+        typeof messageContent === 'string' ? messageContent : parseTextParts(messageContent);
+      generateSpeech(parsedMessage, false);
     }
   };
 
@@ -61,6 +71,7 @@ const useTextToSpeech = (message: string, isLast: boolean, index = 0) => {
     toggleSpeech,
     isSpeaking,
     isLoading,
+    audioRef,
   };
 };
 
