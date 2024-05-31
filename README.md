@@ -44,7 +44,7 @@ This project is a fork of the incredible [LibreChat](https://github.com/danny-av
 
 This project is still in active development, so stay tuned for updates and new features! 
 
-Keep up with the latest updates by subscribing to the [Flocode.dev newsletter](https://flocode.substack.com/ 🌊
+Keep up with the latest updates by subscribing to the [Flocode.dev newsletter](https://flocode.substack.com/) 🌊
 
 # 📃 Librechat Features
 
