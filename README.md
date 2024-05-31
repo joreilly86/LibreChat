@@ -3,7 +3,7 @@
     <img src="client/public/assets/logo.svg" height="256">
   </a>
   <h1 align="center">
-    <a href="https://librechat.ai">LibreChat</a>
+    <a href="https://librechat.ai">Flocode Fork of LibreChat</a>
   </h1>
 </p>
 
@@ -38,7 +38,15 @@
 </a>
 </p>
 
-# 📃 Features
+# Flocode.dev - AI Tools for Engineers
+
+This project is a fork of the incredible [LibreChat](https://github.com/danny-avila/librechat) tool, and is designed to provide engineers with a custom AI hub for their work. My goal is to create a platform that leverages advanced AI to assist with various engineering tasks, from structural analysis to project management.
+
+This project is still in active development, so stay tuned for updates and new features! 
+
+Keep up with the latest updates by subscribing to the [Flocode.dev newsletter](https://flocode.substack.com/ 🌊
+
+# 📃 Librechat Features
 
 - 🖥️ UI matching ChatGPT, including Dark mode, Streaming, and latest updates
 - 🤖 AI model selection:
