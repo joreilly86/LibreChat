@@ -24,8 +24,20 @@ services:
       - RAG_API_URL=http://rag_api:${RAG_PORT:-8000}
     volumes:
       - type: bind
-        source: ./.env
-        target: /app/.env
+        source: ./librechat.yaml
+        target: /app/librechat.yaml
+      - type: bind
+        source: ./client/public/assets/favicon-32x32.png
+        target: /app/client/public/assets/favicon-32x32.png
+      - type: bind
+        source: ./client/public/assets/favicon-16x16.png
+        target: /app/client/public/assets/favicon-16x16.png
+      - type: bind
+        source: ./client/public/assets/logo.svg
+        target: /app/client/public/assets/logo.svg
+      - type: bind
+        source: ./client/public/assets/web-browser.svg
+        target: /app/client/public/assets/web-browser.svg
       - ./images:/app/client/public/images
       - ./logs:/app/api/logs
   mongodb:
